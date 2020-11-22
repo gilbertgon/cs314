@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package csce314project;
+package project314;
 
 import java.util.Vector;
 
@@ -25,10 +25,19 @@ import java.util.Vector;
 public class Transaction extends treeNode{
     double amount;
     String date;
+    String below = "none";
     Vector<Transaction> transactionList;
     
     public Transaction(double amount, String date)
-    {}
+    {
+        
+        super(nodeType.Transaction, 1234);
+    
+    }
+    public String getBelow()
+    {
+        return this.below;
+    }
     
     //we can generate a new hashvalue if we added a transaction to our list
     int getHashValue()

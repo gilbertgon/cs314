@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package csce314project;
+package project314;
 /*****************************************
 ** File:    User.java
 ** Project: CSCE 314 Project , Fall 2020
@@ -19,10 +19,16 @@ package csce314project;
 ***********************************************/
 public class User extends treeNode {
     String userName;
+    String below = "paymethod";
     public User(String name)
     {
+        
+        super(nodeType.User, 1234);
         this.userName = name;
     }
+
+   
+    
     String getUserName(){return this.userName;}
     
 //We add mehod here to a specific user but not all users.

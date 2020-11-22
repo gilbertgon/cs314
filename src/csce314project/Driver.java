@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package csce314project;
+package project314;
 
 import java.io.IOException;
 import java.util.Scanner;
+import project314.treeNode.nodeType;
 
 /*****************************************
 ** File:    Driver.java
@@ -31,12 +32,23 @@ public class Driver {
      */
     public static void main(String[] args) throws IOException {
         System.out.println("Input User Name");
+        System.out.println();
         Scanner inputUser = new Scanner (System.in);
         String userName = inputUser.nextLine();
+        treeNode root = new treeNode(nodeType.Root, 1234);
         
+        User newUser = new User(userName);
+        root.addChild(newUser);
         //Check if user previously exists from a list of users
         //if not then make new user
-        System.out.println(userName + "has Cash & Credit available");
+        System.out.println(userName + " has Cash & Credit available");
+      
+        PaymentMethod cash = new PaymentMethod("card");
+        PaymentMethod card = new PaymentMethod("credit");
+        
+        root.addChild(cash);
+        root.addChild(card);
+        root.print();
         System.out.println(userName + " made a transaction ? Y/N");
         
         

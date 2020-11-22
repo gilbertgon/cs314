@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package csce314project;
+package project314;
 
 import java.util.Vector;
 /*****************************************
@@ -22,10 +22,16 @@ import java.util.Vector;
 public class Business extends treeNode{
     String businessName;
     int numberOfTrans;
+    String below = "trans";
     
     public Business(String businessName)
     {
+        super(nodeType.Business, 1234);
         this.businessName = businessName;
+    }
+    public String getBelow()
+    {
+        return this.below;
     }
     void addTransaction(){}
     int getNumOfTrans(){ return 0;}

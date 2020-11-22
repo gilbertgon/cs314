@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package csce314project;
+package project314;
 
 import java.util.Vector;
 
@@ -24,9 +24,15 @@ public class PaymentMethod extends treeNode
 {
     
     String addedPaymentType;
+    String below = "business";
+    public String getBelow()
+    {
+        return this.below;
+    }
 
     public PaymentMethod(String paymentType) 
     {
+       super(nodeType.PaymentMethod, 1234);
        this.addedPaymentType = paymentType;
     }
     //Do we already have a given type trying to be accessed?
