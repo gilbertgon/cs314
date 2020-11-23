@@ -20,23 +20,27 @@ public class Business extends treeNode {
 	int numberOfTrans;
 	String below = "trans";
 
+	// default constructor for class Business
 	public Business(String businessName) {
 		super(nodeType.Business, 1234);
 		this.businessName = businessName;
 	}
 
+	// returns the Node below the business
 	public String getBelow() {
 		return this.below;
 	}
 
+	// @TODO: add Transaction
 	void addTransaction() {
 	}
 
 	int getNumOfTrans() {
-		return 0;
+		return this.numberOfTrans;
 	}
 
-	void setNumOfTrans() {
+	void setNumOfTrans(int numOfTrans) {
+		this.numberOfTrans = numOfTrans;
 	}
 
 }

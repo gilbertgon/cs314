@@ -19,18 +19,26 @@ public class User extends treeNode {
 	String userName;
 	String below = "paymethod";
 
+	// default Constructor for User class
 	public User(String name) {
-
 		super(nodeType.User, 1234);
 		this.userName = name;
 	}
 
+	// returns the username of the User
 	String getUserName() {
 		return this.userName;
 	}
 
-//We add mehod here to a specific user but not all users.
+	// Example of Abstraction from parent TreeNode
+	void updateToRoot() {
+		this.setParentHash(hashCode());
+	}
+
+	// @TODO:
+	// We add mehod here to a specific user but not all users.
 	void addPayMethod() {
+
 	}
 
 }

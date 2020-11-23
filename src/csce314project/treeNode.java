@@ -18,6 +18,7 @@ package csce314project;
  ***********************************************/
 public class treeNode {
 
+	// defines different types of possible Nodetypes
 	public enum nodeType {
 		Root, Transaction, Business, User, PaymentMethod;
 	}
@@ -28,12 +29,17 @@ public class treeNode {
 	private treeNode rightNode;
 	private treeNode rootNode;
 	private treeNode tail;
-	private treeNode parent;
+	private int parentHash;
 	String below;
+
+	public void setParentHash(int hash) {
+		this.parentHash = hash;
+	}
 
 	// In a binary tree we would go Left and Right, here we store the address
 	// of the children node below us.
 
+	// default constructor of the treeNode class
 	public treeNode(nodeType type, int hashVal) {
 		this.hashVal = hashVal;
 		this.nodeType1 = type;
@@ -44,12 +50,10 @@ public class treeNode {
 		if (this.nodeType1 == nodeType.Root) {
 			rootNode = this;
 		}
-
 		setBelow(this.nodeType1);
-
-		System.out.println(this.nodeType1 + " " + this.hashVal + " " + this.below);
 	}
 
+	// defines the hierarchy of each node of the Merkle Tree
 	public void setBelow(nodeType type) {
 		switch (type) {
 		case Root:
@@ -71,40 +75,39 @@ public class treeNode {
 
 	}
 
+	// @TODO:
 	void removeChild() {
 	}
 
+	// returns the nodeType of a node
 	public nodeType getNodeType() {
 		return this.nodeType1;
 	}
 
+	// returns the node below the current node
 	public String getBelow() {
 		return this.below;
 	}
 
+	// adds children to the current tree node
 	void addChild(treeNode addedNode) {
 		treeNode temp = rootNode.tail;
-		System.out.println("The tail is " + temp.getNodeType());
-
 		if (temp.checkLeftEmpty() && temp.getBelow() == addedNode.nodeType1.toString()) {
-//			temp.leftNode = addedNode;
 			rootNode.tail = addedNode;
-			System.out.println("We added left " + addedNode.nodeType1.toString());
 
 		} else if (temp.checkRightEmpty() && temp.getBelow() == addedNode.nodeType1.toString()) {
 			temp.rightNode = addedNode;
 			rootNode.tail = addedNode;
-
-			System.out.println("We added right " + addedNode.nodeType1.toString());
 
 		}
 
 	}
 
 	// What are the children below my current node?
-//    public ArrayList<User> getChildren() {
-//        return children;
-//    }
+	// public ArrayList<User> getChildren() {
+	// return children;
+	// }
+
 	public boolean checkLeftEmpty() {
 		return this.leftNode == null;
 	}
@@ -113,11 +116,10 @@ public class treeNode {
 		return this.rightNode == null;
 	}
 
+	// @TODO:
 	// Print my tree
 	public boolean print() {
-		System.out.println("this is a " + this.nodeType1);
 		while (this != tail) {
-			System.out.println("WE:RE INSIDE BOIS");
 			treeNode tempL = this.leftNode;
 			System.out.println(this.nodeType1.toString());
 			if (!this.checkLeftEmpty()) {
@@ -154,14 +156,17 @@ public class treeNode {
 		return false;
 	}
 
+	// returns the root of the node
 	public treeNode getRoot() {
 		return this.rootNode;
 	}
 
+	// @TODO:
 	// update our tree when we change hash value
 	void updateToRoot() {
 	}
 
+	// @TODO:
 	// Generates a hash Value for our node regardless of type
 	public int hashGenerator() {
 		return 0;

@@ -21,18 +21,22 @@ import java.util.Vector;
  ***********************************************/
 
 public class Transaction extends treeNode {
-
 	String below = "none";
+
+	// creates a Collection of type generic Object
 	Vector<Object> transactionList;
 
+	// Default constructor for Transaction
 	public Transaction(double amount, String date) {
 		super(nodeType.Transaction, 1234);
 	}
 
+	// returns the object below the treenode.
 	public String getBelow() {
 		return this.below;
 	}
 
+	// appends a new transaction into the trasaction vector
 	public void addTransaction(String name, double value, String date) {
 		TransactionType transactionReciept = new TransactionType(value, date, name);
 		transactionList.add(transactionReciept);
@@ -45,8 +49,16 @@ public class Transaction extends treeNode {
 
 	// output the Transaction info available for a certain Date
 	String getTransInfo(String date) {
-		String output = amount + " " + date;
+		String output = "";
+		for (int i = 0; i < transactionList.size(); i++) {
+			TransactionType trans = (TransactionType) transactionList.get(i);
+			if (trans.getDate() == date) {
+				output += trans.getAmount() + " " + trans.getDate();
+				return output;
+			}
+		}
 		return output;
+
 	}
 
 }

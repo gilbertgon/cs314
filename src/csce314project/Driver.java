@@ -30,33 +30,48 @@ public class Driver {
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) throws IOException {
+		// asks the user to input an username
 		System.out.println("Input User Name");
 		System.out.println();
 		Scanner inputUser = new Scanner(System.in);
 		String userName = inputUser.nextLine();
+
+		// instantiates a root for the Merkle Tree
 		treeNode root = new treeNode(nodeType.Root, 1234);
 
+		// creates a new user with the username provided by the user
 		User newUser = new User(userName);
+
+		// adds the user to our Merkle Tree
+		// Mock Stub
 		root.addChild(newUser);
-//
-//		User newUser2 = new User("other dude");
-//		root.addChild(newUser2);
+
+		// @TODO:
 		// Check if user previously exists from a list of users
 		// if not then make new user
+
 		System.out.println(userName + " has Cash & Credit available.");
 
+		// creates two types of payment methods for each user
 		PaymentMethod cash = new PaymentMethod("card");
 		PaymentMethod card = new PaymentMethod("credit");
 
+		// adds two types of payment methods to each user
 		root.addChild(cash);
 		root.addChild(card);
 
-//		root.print();
+		System.out.println("Has " + userName + " made a transaction? Y/N");
 
-		System.out.println(userName + " made a transaction ? Y/N");
+		String checkTrans = inputUser.nextLine().toLowerCase();
 
-		if (inputUser.nextLine().toLowerCase() == "y") {
+		if (checkTrans != null && checkTrans.equals("y")) {
+			// @TODO:
 			// add transaction to the tree
+			System.out.println("Please enter an amount: ");
+			double amount = (double) inputUser.nextDouble();
+			Transaction newTrans = new Transaction(amount, userName);
+			root.addChild(newTrans);
+			System.out.println("The user has successfully made a transaction of $" + amount);
 			/* Ask for business name */
 			/* If business name exists, add a new transaction to list */
 			// Adding new transaction
@@ -66,10 +81,9 @@ public class Driver {
 			// Adding new transaction
 			/* Add the amount of money, the date, & assign hash value */
 		}
-
-		else // user didn't make a transaction just exit
-		{
-
+		// user didn't make a transaction just exit
+		else {
+			System.exit(0);
 		}
 
 	}

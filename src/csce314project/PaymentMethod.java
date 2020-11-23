@@ -15,15 +15,19 @@ package csce314project;
  **
  **
  ***********************************************/
+
+// example of Inheritance
 public class PaymentMethod extends treeNode {
 
 	String addedPaymentType;
 	String below = "business";
 
+	// returns the Node below the current node
 	public String getBelow() {
 		return this.below;
 	}
 
+	// default constructor of the PaymentMethod class
 	public PaymentMethod(String paymentType) {
 		super(nodeType.PaymentMethod, 1234);
 		this.addedPaymentType = paymentType;
@@ -33,12 +37,15 @@ public class PaymentMethod extends treeNode {
 	void checkForType() {
 	};
 
+	// @TODO: Add Type
 	void addType() {
 	}
 
+	// @TODO: Add Type
 	void removeType() {
 	}
 
+	// @TODO:
 	// We add businesses below this node because we track what business I paid
 	// with what kind of payment method
 	void addBusinessVisited() {
