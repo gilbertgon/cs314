@@ -6,10 +6,11 @@
 package csce314project;
 
 /*****************************************
- ** File: treeNode.java Project: CSCE 314 Project , Fall 2020 Author: Shikhar
- * Baheti & Gilbert Gonzalez Date: 11/7/2020 Section: 512 E-mail:
- * gilbertglz@tamu.edu & shikhar@tamu.edu
- **
+ ** File: Driver.java Project: CSCE 314 Project, 
+ *  Fall 2020 Author: Shikhar Baheti & Gilbert Gonzalez 
+ *  Date: 11/23/2020 Section: 512 
+ *  E-mail: gilbertglz@tamu.edu & shikhar@tamu.edu
+ *  
  ** This file contains the treeNode class for the final project in CSCE 314. This
  * is the basis of our tree. All nodes have a type designation, but also have a
  * hash value. We generate our hashValue here as well. Our root (Bank) will be
@@ -45,7 +46,7 @@ public class treeNode {
 		this.nodeType1 = type;
 		leftNode = null;
 		rightNode = null;
-		parent = null;
+		parentHash = 0;
 		tail = this;
 		if (this.nodeType1 == nodeType.Root) {
 			rootNode = this;
@@ -98,7 +99,6 @@ public class treeNode {
 		} else if (temp.checkRightEmpty() && temp.getBelow() == addedNode.nodeType1.toString()) {
 			temp.rightNode = addedNode;
 			rootNode.tail = addedNode;
-
 		}
 
 	}

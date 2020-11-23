@@ -6,10 +6,11 @@
 package csce314project;
 
 /*****************************************
- ** File: Business.java Project: CSCE 314 Project , Fall 2020 Author: Shikhar
- * Baheti & Gilbert Gonzalez Date: 11/7/2020 Section: 512 E-mail:
- * gilbertglz@tamu.edu & shikhar@tamu.edu
- **
+ ** File: Driver.java Project: CSCE 314 Project, 
+ *  Fall 2020 Author: Shikhar Baheti & Gilbert Gonzalez 
+ *  Date: 11/23/2020 Section: 512 
+ *  E-mail: gilbertglz@tamu.edu & shikhar@tamu.edu
+ *  
  ** This file contains Business class, the business must have a name, and we have
  * a numberOfTransaction under this business variable that is updated after each
  * new Transaction.
