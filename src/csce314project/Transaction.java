@@ -1,24 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package csce314project;
 
 import java.util.Vector;
 
-/*****************************************
- ** File: Driver.java Project: CSCE 314 Project, 
- *  Fall 2020 Author: Shikhar Baheti & Gilbert Gonzalez 
- *  Date: 11/23/2020 Section: 512 
- *  E-mail: gilbertglz@tamu.edu & shikhar@tamu.edu
- *  
- ** This file contains the Transaction class for the final project in CSCE 314.
- ** This class has a transactionList vector to continously add more transactions
- *  under the same business. We want to keep a date of our transaction to later
- *  query if needed, as well as the amount the transaction was made of.
- **
- ***********************************************/
+/*
+File: Transaction.java
+Project: CSCE 314 Project, Fall 2020
+Author: Shikhar Baheti & Gilbert Gonzalez
+Date: 11/23/2020
+Section: 512
+E-mail: gilbertglz@tamu.edu & shikhar@tamu.edu
+This file contains the Transaction class for the final project in CSCE 314.
+This class has a transactionList vector to continously add more transactions
+under the same business. We want to keep a date of our transaction to later
+query if needed, as well as the amount the transaction was made of.
+*/
 
 public class Transaction extends treeNode {
 	String below = "none";
