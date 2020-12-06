@@ -1,7 +1,9 @@
 package csce314project;
 
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.*;
+//import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import csce314project.treeNode.nodeType;
 
@@ -27,44 +29,74 @@ public class Driver {
 	 */
 	public static void main(String[] args) throws IOException {
 		// asks the user to input an username
-		System.out.println("Input User Name");
-		System.out.println();
-		Scanner inputUser = new Scanner(System.in);
-		String userName = inputUser.nextLine();
+		System.out.print("Welcome to the Aggie Bank! Please input your username: ");
+//		System.out.println();
+		Scanner scan = new Scanner(System.in);
+		String userName = scan.nextLine();
 
 		// instantiates a root for the Merkle Tree
 		treeNode root = new treeNode(nodeType.Root, 1234);
+		BankDatabase bankDB = new BankDatabase();
+		String fullName = "";
+
+		bankDB.addUser("shikhar2000", "Shikhar Baheti");
+
+		if (!bankDB.checkUserName(userName).equals("NULL")) {
+			fullName = bankDB.checkUserName(userName);
+			System.out.println("Welcome back " + fullName + "! You have cash and credit available.");
+		} else {
+			System.out.println("Hello, " + userName
+					+ "! You are currently not in our bank system. Would you like to create an account with us? Y/N");
+			{
+				String option = scan.nextLine().toLowerCase();
+				if (option != null && option.equals("y")) {
+					System.out.println("Please input your full name in the format: \"Firstname Lastname\":");
+					String name = scan.nextLine();
+					bankDB.addUser(userName, name);
+					fullName = bankDB.checkUserName(userName);
+					System.out.println(
+							"Thank you for joining Aggie Bank, " + fullName + "! You have cash and credit available.");
+				}
+			}
+		}
+
+//		String Str = new String("Welcome to Tutorialspoint.com");
+//		System.out.println("Hashcode for Str :" + Str.hashCode());
+
+		// System.out.println(myHashCode);
 
 		// creates a new user with the username provided by the user
 		User newUser = new User(userName);
+		User user2 = new User("testUser");
 
 		// adds the user to our Merkle Tree
 		// Mock Stub
-		root.addChild(newUser);
+		root.addUser(newUser);
+		root.addUser(user2);
+		root.printTree();
 
 		// @TODO:
 		// Check if user previously exists from a list of users
 		// if not then make new user
 
-		System.out.println(userName + " has Cash & Credit available.");
+//		System.out.println("Welcome back " + userName + "! You have Cash & Credit available.");
 
 		// creates two types of payment methods for each user
 		PaymentMethod cash = new PaymentMethod("card");
 		PaymentMethod card = new PaymentMethod("credit");
 
 		// adds two types of payment methods to each user
-		root.addChild(cash);
-		root.addChild(card);
+//		root.addChild(cash);
+//		root.addChild(card);
 
-		System.out.println("Has " + userName + " made a transaction? Y/N");
-
-		String checkTrans = inputUser.nextLine().toLowerCase();
+		System.out.println("Do you want to make a transaction, " + userName + "? Y/N");
+		String checkTrans = scan.nextLine().toLowerCase();
 
 		if (checkTrans != null && checkTrans.equals("y")) {
 			// @TODO:
 			// add transaction to the tree
 			System.out.println("Please enter an amount: ");
-			double amount = (double) inputUser.nextDouble();
+			double amount = (double) scan.nextDouble();
 			Transaction newTrans = new Transaction(amount, userName);
 			root.addChild(newTrans);
 			System.out.println("The user has successfully made a transaction of $" + amount);

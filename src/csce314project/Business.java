@@ -27,7 +27,7 @@ public class Business extends treeNode {
 		return this.below;
 	}
 
-	// @TODO: add Transaction
+	// @TODO: add Transaction	
 	void addTransaction() {
 	}
 

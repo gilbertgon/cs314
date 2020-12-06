@@ -20,7 +20,7 @@ public class treeNode {
 		Root, Transaction, Business, User, PaymentMethod;
 	}
 
-	nodeType nodeType1;
+	nodeType typeOfNode;
 	int hashVal;
 	private treeNode leftNode;
 	private treeNode rightNode;
@@ -39,15 +39,15 @@ public class treeNode {
 	// default constructor of the treeNode class
 	public treeNode(nodeType type, int hashVal) {
 		this.hashVal = hashVal;
-		this.nodeType1 = type;
+		this.typeOfNode = type;
 		leftNode = null;
 		rightNode = null;
 		parentHash = 0;
 		tail = this;
-		if (this.nodeType1 == nodeType.Root) {
+		if (this.typeOfNode == nodeType.Root) {
 			rootNode = this;
 		}
-		setBelow(this.nodeType1);
+		setBelow(this.typeOfNode);
 	}
 
 	// defines the hierarchy of each node of the Merkle Tree
@@ -78,7 +78,7 @@ public class treeNode {
 
 	// returns the nodeType of a node
 	public nodeType getNodeType() {
-		return this.nodeType1;
+		return this.typeOfNode;
 	}
 
 	// returns the node below the current node
@@ -86,17 +86,39 @@ public class treeNode {
 		return this.below;
 	}
 
+	void addUser(treeNode userNode) {
+		System.out.println("<------------- WE WILL NOW ADD A NEW USER ------------->");
+		System.out.println(userNode.getClass().toString());
+
+		if (userNode instanceof User) {
+			if (rootNode.checkLeftEmpty()) {
+				rootNode.leftNode = userNode;
+			} else if (rootNode.checkRightEmpty()) {
+				rootNode.rightNode = userNode;
+			}
+		}
+		System.out.println("<------------- END ADDING TREENODE ------------->");
+	}
+
 	// adds children to the current tree node
 	void addChild(treeNode addedNode) {
 		treeNode temp = rootNode.tail;
-		if (temp.checkLeftEmpty() && temp.getBelow() == addedNode.nodeType1.toString()) {
+		System.out.println("<------------- WE WILL NOW ADD A NEW TREENODE ------------->");
+		System.out.println("The value of root's tail: " + temp.getClass());
+		System.out.println("The value of node below should be: " + temp.getBelow().toString());
+		System.out.println("Adding node: " + addedNode.typeOfNode.toString());
+		System.out.println("Is left empty? " + temp.checkLeftEmpty());
+		System.out.println("Is right empty? " + temp.checkRightEmpty());
+
+		if (temp.checkLeftEmpty() && temp.getBelow() == addedNode.typeOfNode.toString()) {
+			temp.leftNode = addedNode;
 			rootNode.tail = addedNode;
 
-		} else if (temp.checkRightEmpty() && temp.getBelow() == addedNode.nodeType1.toString()) {
+		} else if (temp.checkRightEmpty() && temp.getBelow() == addedNode.typeOfNode.toString()) {
 			temp.rightNode = addedNode;
 			rootNode.tail = addedNode;
 		}
-
+		System.out.println("<------------- END ADDING TREENODE ------------->");
 	}
 
 	// What are the children below my current node?
@@ -112,26 +134,32 @@ public class treeNode {
 		return this.rightNode == null;
 	}
 
-	// @TODO:
-	// Print my tree
-	public boolean print() {
-		while (this != tail) {
-			treeNode tempL = this.leftNode;
-			System.out.println(this.nodeType1.toString());
-			if (!this.checkLeftEmpty()) {
-				System.out.println("We went left");
-				System.out.println(tempL.nodeType1);
-				tempL.print();
+	public void printTree() {
+		System.out.println("<----------------------------- PRINTING TREE ----------------------------->");
+		System.out.println(this.leftNode);
+		System.out.println(this.rightNode);
+		System.out.println("<----------------------------- END PRINTING TREE ----------------------------->");
+	}
 
-			}
-
-			treeNode tempR = this.rightNode;
-			if (!this.checkRightEmpty()) {
-				System.out.println("We went right");
-				System.out.println(tempR.nodeType1);
-
-			}
-
+// @TODO:
+// Print my tree
+//	public boolean print() {
+//		while (this != tail) {
+//			treeNode tempL = this.leftNode;
+//			System.out.println(this.nodeType1.toString());
+//			if (!this.checkLeftEmpty()) {
+//				System.out.println("We went left");
+//				System.out.println(tempL.nodeType1);
+//				tempL.print();
+//
+//			}
+//
+//			treeNode tempR = this.rightNode;
+//			if (!this.checkRightEmpty()) {
+//				System.out.println("We went right");
+//				System.out.println(tempR.nodeType1);
+//
+//			}
 //            else
 //            {
 //                tail=temp;
@@ -147,10 +175,9 @@ public class treeNode {
 //                rootNode.tail=tempL;
 //                return false;
 //            }
-		}
+//	}
 
-		return false;
-	}
+//	return false;}
 
 	// returns the root of the node
 	public treeNode getRoot() {
