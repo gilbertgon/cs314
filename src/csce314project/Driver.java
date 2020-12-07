@@ -87,6 +87,8 @@ public class Driver {
 		user2.addPaymentMethod(card2);
 		
 		cash1.addBusiness(new Business("TEST BUSINESS 1"));
+		cash1.addBusiness(new Business("TEST BUSINESS 2"));
+		
 		
 //		root.addPaymentMethod(user2, card);
 //		root.addPaymentMethod(user2, cash);

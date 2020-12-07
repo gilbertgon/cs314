@@ -46,8 +46,7 @@ public class PaymentMethod extends treeNode {
 	void addBusiness(Business business) {
 		if (this.checkLeftEmpty()) {
 			this.leftNode = business;
-		}
-		else if (this.checkRightEmpty()) {
+		} else if (this.checkRightEmpty()) {
 			this.rightNode = business;
 		}
 	}
