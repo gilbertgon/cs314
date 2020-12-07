@@ -22,8 +22,8 @@ public class treeNode {
 
 	nodeType typeOfNode;
 	int hashVal;
-	private treeNode leftNode;
-	private treeNode rightNode;
+	protected treeNode leftNode;
+	protected treeNode rightNode;
 	private treeNode rootNode;
 	private treeNode tail;
 	private int parentHash;
@@ -86,29 +86,46 @@ public class treeNode {
 		return this.below;
 	}
 
-	void addUser(treeNode userNode) {
-		System.out.println("<------------- WE WILL NOW ADD A NEW USER ------------->");
-		System.out.println(userNode.getClass().toString());
-
-		if (userNode instanceof User) {
-			if (rootNode.checkLeftEmpty()) {
-				rootNode.leftNode = userNode;
-			} else if (rootNode.checkRightEmpty()) {
-				rootNode.rightNode = userNode;
-			}
+	void addUser(User userNode) {
+//		System.out.println("<------------- WE WILL NOW ADD A NEW USER ------------->");
+		if (rootNode.checkLeftEmpty()) {
+			rootNode.leftNode = userNode;
+		} else if (rootNode.checkRightEmpty()) {
+			rootNode.rightNode = userNode;
 		}
-		System.out.println("<------------- END ADDING TREENODE ------------->");
+//		System.out.println("<------------- END ADDING TREENODE ------------->");
 	}
+
+//	void addPaymentMethod(User userNode, PaymentMethod PaymentMethod) {
+//		if (rootNode.leftNode instanceof User) {
+//			User userRootNodeL = (User) rootNode.leftNode;
+//			User userRootNodeR = (User) rootNode.rightNode;
+//			if (userRootNodeL.getUserName() == userNode.getUserName()) {
+//				if (userRootNodeL.checkLeftEmpty()) {
+//					userRootNodeL.leftNode = PaymentMethod;
+//				} else if (userRootNodeL.checkRightEmpty()) {
+//					userRootNodeL.rightNode = PaymentMethod;
+//				}
+//			} else if (userRootNodeR.getUserName() == userNode.getUserName()) {
+//				if (userRootNodeR.checkLeftEmpty()) {
+//					userRootNodeR.leftNode = PaymentMethod;
+//				} else if (userRootNodeR.checkRightEmpty()) {
+//					userRootNodeR.rightNode = PaymentMethod;
+//				}
+//			}
+//		}
+//
+//	}
 
 	// adds children to the current tree node
 	void addChild(treeNode addedNode) {
 		treeNode temp = rootNode.tail;
-		System.out.println("<------------- WE WILL NOW ADD A NEW TREENODE ------------->");
-		System.out.println("The value of root's tail: " + temp.getClass());
-		System.out.println("The value of node below should be: " + temp.getBelow().toString());
-		System.out.println("Adding node: " + addedNode.typeOfNode.toString());
-		System.out.println("Is left empty? " + temp.checkLeftEmpty());
-		System.out.println("Is right empty? " + temp.checkRightEmpty());
+//		System.out.println("<------------- WE WILL NOW ADD A NEW TREENODE ------------->");
+//		System.out.println("The value of root's tail: " + temp.getClass());
+//		System.out.println("The value of node below should be: " + temp.getBelow().toString());
+//		System.out.println("Adding node: " + addedNode.typeOfNode.toString());
+//		System.out.println("Is left empty? " + temp.checkLeftEmpty());
+//		System.out.println("Is right empty? " + temp.checkRightEmpty());
 
 		if (temp.checkLeftEmpty() && temp.getBelow() == addedNode.typeOfNode.toString()) {
 			temp.leftNode = addedNode;
@@ -118,7 +135,7 @@ public class treeNode {
 			temp.rightNode = addedNode;
 			rootNode.tail = addedNode;
 		}
-		System.out.println("<------------- END ADDING TREENODE ------------->");
+//		System.out.println("<------------- END ADDING TREENODE ------------->");
 	}
 
 	// What are the children below my current node?
@@ -136,8 +153,20 @@ public class treeNode {
 
 	public void printTree() {
 		System.out.println("<----------------------------- PRINTING TREE ----------------------------->");
-		System.out.println(this.leftNode);
-		System.out.println(this.rightNode);
+		System.out.println("User 1: " + this.leftNode);
+		System.out.println("User 2: " + this.rightNode);
+		System.out.println("User 1's first payment method: " + this.leftNode.leftNode);
+		System.out.println("User 1's second payment method: " + this.leftNode.rightNode);
+		System.out.println("User 2's first payment method: " + this.rightNode.leftNode);
+		System.out.println("User 2's second payment method: " + this.rightNode.rightNode);
+		System.out.println("User 1's first CASH Business: " + this.leftNode.leftNode.leftNode);
+		System.out.println("User 1's second CASH Business: " + this.leftNode.leftNode.rightNode);
+		System.out.println("User 1's first CARD Business: " + this.leftNode.rightNode.leftNode);
+		System.out.println("User 1's second CARD Business: " + this.leftNode.rightNode.rightNode);
+		System.out.println("User 2's first CASH Business: " + this.rightNode.leftNode.leftNode);
+		System.out.println("User 2's second CASH Business: " + this.rightNode.leftNode.rightNode);
+		System.out.println("User 2's first CARD Business: " + this.rightNode.rightNode.leftNode);
+		System.out.println("User 2's second CARD Business: " + this.rightNode.rightNode.rightNode);
 		System.out.println("<----------------------------- END PRINTING TREE ----------------------------->");
 	}
 

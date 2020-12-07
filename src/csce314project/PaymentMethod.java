@@ -43,7 +43,13 @@ public class PaymentMethod extends treeNode {
 	// @TODO:
 	// We add businesses below this node because we track what business I paid
 	// with what kind of payment method
-	void addBusinessVisited() {
+	void addBusiness(Business business) {
+		if (this.checkLeftEmpty()) {
+			this.leftNode = business;
+		}
+		else if (this.checkRightEmpty()) {
+			this.rightNode = business;
+		}
 	}
 
 }

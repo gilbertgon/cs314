@@ -73,6 +73,24 @@ public class Driver {
 		// Mock Stub
 		root.addUser(newUser);
 		root.addUser(user2);
+
+		PaymentMethod cash1 = new PaymentMethod("cash");
+		PaymentMethod card1 = new PaymentMethod("card");
+		
+		PaymentMethod cash2 = new PaymentMethod("cash");
+		PaymentMethod card2 = new PaymentMethod("card");
+
+		newUser.addPaymentMethod(cash1);
+		newUser.addPaymentMethod(card1);
+		
+		user2.addPaymentMethod(cash2);
+		user2.addPaymentMethod(card2);
+		
+		cash1.addBusiness(new Business("TEST BUSINESS 1"));
+		
+//		root.addPaymentMethod(user2, card);
+//		root.addPaymentMethod(user2, cash);
+
 		root.printTree();
 
 		// @TODO:
@@ -82,8 +100,6 @@ public class Driver {
 //		System.out.println("Welcome back " + userName + "! You have Cash & Credit available.");
 
 		// creates two types of payment methods for each user
-		PaymentMethod cash = new PaymentMethod("card");
-		PaymentMethod card = new PaymentMethod("credit");
 
 		// adds two types of payment methods to each user
 //		root.addChild(cash);

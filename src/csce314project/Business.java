@@ -27,13 +27,14 @@ public class Business extends treeNode {
 		return this.below;
 	}
 
-	// @TODO: add Transaction	
+	// @TODO: add Transaction
 	void addTransaction() {
 	}
 
 	int getNumOfTrans() {
 		return this.numberOfTrans;
 	}
+	
 
 	void setNumOfTrans(int numOfTrans) {
 		this.numberOfTrans = numOfTrans;

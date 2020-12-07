@@ -33,8 +33,13 @@ public class User extends treeNode {
 
 	// @TODO:
 	// We add mehod here to a specific user but not all users.
-	void addPayMethod() {
-
+	void addPaymentMethod(PaymentMethod PaymentMethod) {
+		if (this.checkLeftEmpty()) {
+			this.leftNode = PaymentMethod;
+		}
+		else if (this.checkRightEmpty()) {
+			this.rightNode = PaymentMethod;
+		}
 	}
 
 }
