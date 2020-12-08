@@ -1,13 +1,12 @@
 package csce314project;
-import java.util.*; 
+
+import java.util.*;
 
 import java.io.IOException;
 import java.util.*;
 //import java.util.Scanner;
 import java.util.regex.Pattern;
-import javaapplication10.treeNode.nodeType;
-
-//import csce314project.treeNode.nodeType;
+import csce314project.treeNode.nodeType;
 
 /*
 File: Driver.java
@@ -32,7 +31,7 @@ public class Driver {
 	public static void main(String[] args) throws IOException {
 		// asks the user to input an username
 		System.out.print("Welcome to the Aggie Bank! Please input your username: ");
-//		System.out.println();
+
 		Scanner scan = new Scanner(System.in);
 		String userName = scan.nextLine();
 
@@ -62,42 +61,40 @@ public class Driver {
 			}
 		}
 
-//		String Str = new String("Welcome to Tutorialspoint.com");
-//		System.out.println("Hashcode for Str :" + Str.hashCode());
-
-		// System.out.println(myHashCode);
-
 		// creates a new user with the username provided by the user
-		User newUser = new User(userName);
-		User user2 = new User("testUser");
+		User user1 = new User("shikhar2000");
+		User user2 = new User(userName);
 
 		// adds the user to our Merkle Tree
-		// Mock Stub
-		root.addUser(newUser);
+		root.addUser(user1);
 		root.addUser(user2);
 
 		PaymentMethod cash1 = new PaymentMethod("cash");
-                cash1.addTransNode(new Transaction(newUser.toString()));
-                
-		//cash1.addTransNode(new Business(amount,dateSpent, payMethod,b_name));
+		cash1.addTransNode(new Transaction(user1.toString()));
+
+		// cash1.addTransNode(new Business(amount,dateSpent, payMethod,b_name));
 		PaymentMethod card1 = new PaymentMethod("card");
-		card1.addTransNode(new Transaction(newUser.toString()));
-                
+		card1.addTransNode(new Transaction(user1.toString()));
+
 		PaymentMethod cash2 = new PaymentMethod("cash");
-                cash2.addTransNode(new Transaction(user2.toString()));
-                
-		PaymentMethod card2 = new PaymentMethod("card");                
+		cash2.addTransNode(new Transaction(user2.toString()));
+
+		PaymentMethod card2 = new PaymentMethod("card");
 		card2.addTransNode(new Transaction(user2.toString()));
 
-		newUser.addPaymentMethod(cash1);
-		newUser.addPaymentMethod(card1);
-		
+		user1.addPaymentMethod(cash1);
+		user1.addPaymentMethod(card1);
+
 		user2.addPaymentMethod(cash2);
 		user2.addPaymentMethod(card2);
-		
-                
-		
-		
+
+		card2.hashVal = 3;
+		cash2.hashVal = 6;
+
+//		System.out.println("BEFORE: " + user2.hashVal);
+		user2.updateHashVal();
+//		System.out.println("AFTER: " + user2.hashVal);
+
 //		root.addPaymentMethod(user2, card);
 //		root.addPaymentMethod(user2, cash);
 
@@ -107,56 +104,55 @@ public class Driver {
 		// Check if user previously exists from a list of users
 		// if not then make new user
 
-//		System.out.println("Welcome back " + userName + "! You have Cash & Credit available.");
+		User selUser;
+		User rootUserL = (User) root.leftNode;
+		User rootUserR = (User) root.rightNode;
+		if (rootUserL.getUserName().equals(userName)) {
+			selUser = rootUserL;
+		} else {
+			selUser = rootUserR;
+		}
 
-		// creates two types of payment methods for each user
-
-		// adds two types of payment methods to each user
-//		root.addChild(cash);
-//		root.addChild(card);
+//		System.out.println(selUser.getUserName());
 
 		System.out.println("Do you want to make a transaction, " + userName + "? Y/N");
 		String checkTrans = scan.nextLine().toLowerCase();
-                
-                
-
-
 
 		if (checkTrans != null && checkTrans.equals("y")) {
+
 			// @TODO:
 			// add transaction to the tree
 			System.out.println("Please enter an amount: ");
 			double amount = (double) scan.nextDouble();
-                        System.out.println("Payment Method: Cash (1) or Credit (2) ?");
-                        int payMethod = scan.nextInt();
-                        if(payMethod == 1)
-                        {
-                            // Adds Transaction to certain 
-                            //find user USES NEW USER HERE
-                            Transaction transNode = (Transaction)newUser.leftNode.leftNode; //access the TransactionNode
-                           
-                            //add TransactionType info
-                             transNode.addTransaction("date", amount, fullName);
-                        }
-                        else if(payMethod == 2)
-                        {
-                            //find user 
-                            //access the payMthd
-                            //add Transaction
-                        
-                        }
-                        else
-                        {
-                            //error on input or exit
-                        }
-                       
+			System.out.println("Payment Method: Cash (1) or Credit (2) ?");
+			int payMethod = scan.nextInt();
+			if (payMethod == 1) {
+				// Adds Transaction to certain
+				// find user USES NEW USER HERE
+
+				Transaction transNode = (Transaction) selUser.leftNode.leftNode; // access the TransactionNode
+				// add TransactionType info=
+				System.out.println("BEFORE: " + transNode.hashVal);
+				transNode.addTransaction("date", amount, fullName);
+				System.out.println("BEFORE 2: " + transNode.hashVal);
+				transNode.addTransaction("yo", amount, fullName);
+				System.out.println("AFTER: " + transNode.hashVal);
+			} else if (payMethod == 2) {
+				// find user
+				// access the payMthd
+				// add Transaction
+
+			} else {
+				// error on input or exit
+			}
+
 //			Transaction newTrans = new Transaction(userName);
 //                        
 //                        cash1.addTransNode(newTrans);
-                       
-			//root.addChild(newTrans);
+
+			// root.addChild(newTrans);
 			System.out.println("The user has successfully made a transaction of $" + amount);
-			
+
 			// Adding new transaction
 			/* Add the amount of money, the date, & assign hash value */
 

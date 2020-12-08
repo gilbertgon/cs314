@@ -1,19 +1,19 @@
 package csce314project;
-import java.util.*;  
+
+import java.util.*;
 
 public class BankDatabase {
-	
+
 	private HashMap<String, String> userNames = new HashMap<>();
-	
+
 	public String checkUserName(String username) {
-		if (this.userNames.containsKey(username)){
+		if (this.userNames.containsKey(username)) {
 			return this.userNames.get(username);
-		}
-		else {
+		} else {
 			return "NULL";
 		}
 	}
-	
+
 	public void addUser(String username, String fullName) {
 		this.userNames.put(username, fullName);
 	}

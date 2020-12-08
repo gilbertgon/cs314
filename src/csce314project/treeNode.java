@@ -1,17 +1,4 @@
-package javaapplication10;package csce314project;
-import java.util.*; 
-/*
-File: treeNode.java
-Project: CSCE 314 Project, Fall 2020
-Author: Shikhar Baheti & Gilbert Gonzalez
-Date: 11/23/2020
-Section: 512
-E-mail: gilbertglz@tamu.edu & shikhar@tamu.edu
-This file contains the treeNode class for the final project in CSCE 314. This
-is the basis of our tree. All nodes have a type designation, but also have a
-hash value. We generate our hashValue here as well. Our root (Bank) will be
-made here as well considering it is the one of kind factor.
-*/
+package csce314project;
 
 public class treeNode {
 
@@ -21,15 +8,13 @@ public class treeNode {
 	}
 
 	nodeType typeOfNode;
-	int hashVal;
+	protected int hashVal;
 	protected treeNode leftNode;
 	protected treeNode rightNode;
 	private treeNode rootNode;
 	private treeNode tail;
 	private int parentHash;
 	String below;
-
-        
 
 	// In a binary tree we would go Left and Right, here we store the address
 	// of the children node below us.
@@ -74,6 +59,35 @@ public class treeNode {
 	// returns the nodeType of a node
 	public nodeType getNodeType() {
 		return this.typeOfNode;
+	}
+
+	protected void setHashVal() {
+		System.out.println("TREENODE SET HASH");
+		int l = 0;
+		int r = 0;
+		if (!this.checkLeftEmpty()) {
+			l = this.leftNode.getLeftHashVal();
+		}
+		if (!this.checkRightEmpty()) {
+			r = this.rightNode.getRightHashVal();
+		}
+		this.hashVal = l + r;
+	}
+
+	protected int getLeftHashVal() {
+		if (!this.checkLeftEmpty()) {
+			return this.leftNode.hashVal;
+		} else {
+			return 0;
+		}
+	}
+
+	protected int getRightHashVal() {
+		if (!this.checkRightEmpty()) {
+			return this.rightNode.hashVal;
+		} else {
+			return 0;
+		}
 	}
 
 	// returns the node below the current node
@@ -148,19 +162,23 @@ public class treeNode {
 
 	public void printTree() {
 		System.out.println("<----------------------------- PRINTING TREE ----------------------------->");
-		System.out.println("User 1: " + this.leftNode);
-		System.out.println("User 2: " + this.rightNode);
-		System.out.println("User 1's first payment method: " + this.leftNode.leftNode);
-		System.out.println("User 1's second payment method: " + this.leftNode.rightNode);
-		System.out.println("User 2's first payment method: " + this.rightNode.leftNode);
-		System.out.println("User 2's second payment method: " + this.rightNode.rightNode);
-                
-                System.out.println("User 1's first Cash Transaction Node: " + this.leftNode.leftNode.leftNode);
-                System.out.println("User 1's first Credit Transaction Node: " + this.leftNode.rightNode.leftNode);
-                
+		System.out.println("User 1: " + ((User) this.leftNode).getUserName());
+		System.out.println("User 2: " + ((User) this.rightNode).getUserName());
+		System.out.println(
+				"User 1's first payment method: " + ((PaymentMethod) this.leftNode.leftNode).getPaymentMethodType());
+		System.out.println(
+				"User 1's second payment method: " + ((PaymentMethod) this.leftNode.rightNode).getPaymentMethodType());
+		System.out.println(
+				"User 2's first payment method: " + ((PaymentMethod) this.rightNode.leftNode).getPaymentMethodType());
+		System.out.println(
+				"User 2's second payment method: " + ((PaymentMethod) this.rightNode.rightNode).getPaymentMethodType());
+
+		System.out.println("User 1's first Cash Transaction Node: " + this.leftNode.leftNode.leftNode);
+		System.out.println("User 1's first Credit Transaction Node: " + this.leftNode.rightNode.leftNode);
+
 		System.out.println("User 2's first Cash Transaction Node: " + this.rightNode.leftNode.leftNode);
-                System.out.println("User 2's first Credit Transaction Node: " + this.rightNode.rightNode.leftNode);
-                
+		System.out.println("User 2's first Credit Transaction Node: " + this.rightNode.rightNode.leftNode);
+
 //		System.out.println("User 1's first CASH Business: " + this.leftNode.leftNode.leftNode);
 //		System.out.println("User 1's second CASH Business: " + this.leftNode.leftNode.rightNode);
 //		System.out.println("User 1's first CARD Business: " + this.leftNode.rightNode.leftNode);
@@ -218,6 +236,7 @@ public class treeNode {
 	// @TODO:
 	// update our tree when we change hash value
 	void updateToRoot() {
+		this.setHashVal();
 	}
 
 	// @TODO:

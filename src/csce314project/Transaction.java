@@ -1,7 +1,7 @@
 package csce314project;
-import java.util.*; 
 
-import java.util.Vector;
+import java.util.ArrayList;
+//import java.util.Vector;
 
 /*
 File: Transaction.java
@@ -17,31 +17,34 @@ query if needed, as well as the amount the transaction was made of.
 */
 
 public class Transaction extends treeNode {
-	String below = "none";
-        String userName = "";
+	String userName = "";
+
 	// creates a Collection of type generic Object
-	Vector<Object> transactionList;
+	ArrayList<Object> transactionList = new ArrayList<Object>();
 
 	// Default constructor for Transaction
 	public Transaction(String userName) {
 		super(nodeType.Transaction, 1234);
+		this.hashVal = transactionList.hashCode();
 	}
 
-	// returns the object below the treenode.
+	// returns the object below the treenode
 	public String getBelow() {
 		return this.below;
 	}
 
 	// appends a new transaction into the trasaction vector
 	public void addTransaction(String name, double value, String date) {
-		TransactionType transactionReciept = new TransactionType(value, date, name) {};
+		TransactionType transactionReciept = new TransactionType(value, date, name);
 		transactionList.add(transactionReciept);
+		this.hashVal = transactionList.hashCode();
+		super.updateToRoot();
 	}
 
 	// we can generate a new hashvalue if we added a transaction to our list
-	int getHashValue() {
-		return hashVal;
-	}
+//	int getHashValue() {
+//		return hashVal;
+//	}
 
 	// output the Transaction info available for a certain Date
 	String getTransInfo(String date) {
