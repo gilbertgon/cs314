@@ -1,4 +1,4 @@
-package csce314project;
+package javaapplication10;
 
 /*
 File: User.java
@@ -28,7 +28,7 @@ public class User extends treeNode {
 
 	// Example of Abstraction from parent TreeNode
 	void updateToRoot() {
-		this.setParentHash(hashCode());
+		//this.setParentHash(hashCode());
 	}
 
 	// @TODO:

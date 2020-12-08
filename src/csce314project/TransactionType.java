@@ -1,4 +1,4 @@
-package csce314project;
+package javaapplication10;
 
 /*
 File: TransactionType.java
@@ -19,7 +19,7 @@ public abstract class TransactionType {
 	private String about;
 
 	// default constructor of the TransactionType class
-	public TransactionType(double amount, String date, String about) {
+	public TransactionType(double amount, String date, String about ) {
 		this.amount = amount;
 		this.date = date;
 		this.about = about;

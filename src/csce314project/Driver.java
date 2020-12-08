@@ -1,11 +1,12 @@
-package csce314project;
+package javaapplication10;
 
 import java.io.IOException;
 import java.util.*;
 //import java.util.Scanner;
 import java.util.regex.Pattern;
+import javaapplication10.treeNode.nodeType;
 
-import csce314project.treeNode.nodeType;
+//import csce314project.treeNode.nodeType;
 
 /*
 File: Driver.java
@@ -75,10 +76,17 @@ public class Driver {
 		root.addUser(user2);
 
 		PaymentMethod cash1 = new PaymentMethod("cash");
+                cash1.addTransNode(new Transaction(newUser.toString()));
+                
+		//cash1.addTransNode(new Business(amount,dateSpent, payMethod,b_name));
 		PaymentMethod card1 = new PaymentMethod("card");
-		
+		card1.addTransNode(new Transaction(newUser.toString()));
+                
 		PaymentMethod cash2 = new PaymentMethod("cash");
-		PaymentMethod card2 = new PaymentMethod("card");
+                cash2.addTransNode(new Transaction(user2.toString()));
+                
+		PaymentMethod card2 = new PaymentMethod("card");                
+		card2.addTransNode(new Transaction(user2.toString()));
 
 		newUser.addPaymentMethod(cash1);
 		newUser.addPaymentMethod(card1);
@@ -86,8 +94,7 @@ public class Driver {
 		user2.addPaymentMethod(cash2);
 		user2.addPaymentMethod(card2);
 		
-		cash1.addBusiness(new Business("TEST BUSINESS 1"));
-		cash1.addBusiness(new Business("TEST BUSINESS 2"));
+                
 		
 		
 //		root.addPaymentMethod(user2, card);
@@ -109,23 +116,49 @@ public class Driver {
 
 		System.out.println("Do you want to make a transaction, " + userName + "? Y/N");
 		String checkTrans = scan.nextLine().toLowerCase();
+                
+                
+
+
 
 		if (checkTrans != null && checkTrans.equals("y")) {
 			// @TODO:
 			// add transaction to the tree
 			System.out.println("Please enter an amount: ");
 			double amount = (double) scan.nextDouble();
-			Transaction newTrans = new Transaction(amount, userName);
-			root.addChild(newTrans);
+                        System.out.println("Payment Method: Cash (1) or Credit (2) ?");
+                        int payMethod = scan.nextInt();
+                        if(payMethod == 1)
+                        {
+                            // Adds Transaction to certain 
+                            //find user USES NEW USER HERE
+                            Transaction transNode = (Transaction)newUser.leftNode.leftNode; //access the TransactionNode
+                           
+                            //add TransactionType info
+                             transNode.addTransaction("date", amount, fullName);
+                        }
+                        else if(payMethod == 2)
+                        {
+                            //find user 
+                            //access the payMthd
+                            //add Transaction
+                        
+                        }
+                        else
+                        {
+                            //error on input or exit
+                        }
+                       
+//			Transaction newTrans = new Transaction(userName);
+//                        
+//                        cash1.addTransNode(newTrans);
+                       
+			//root.addChild(newTrans);
 			System.out.println("The user has successfully made a transaction of $" + amount);
-			/* Ask for business name */
-			/* If business name exists, add a new transaction to list */
+			
 			// Adding new transaction
 			/* Add the amount of money, the date, & assign hash value */
 
-			/* If it doesn't make new business and add new trans */
-			// Adding new transaction
-			/* Add the amount of money, the date, & assign hash value */
 		}
 		// user didn't make a transaction just exit
 		else {

@@ -1,4 +1,4 @@
-package csce314project;
+package javaapplication10;
 
 /*
 File: treeNode.java
@@ -17,7 +17,7 @@ public class treeNode {
 
 	// defines different types of possible Nodetypes
 	public enum nodeType {
-		Root, Transaction, Business, User, PaymentMethod;
+		Root, Transaction, User, PaymentMethod;
 	}
 
 	nodeType typeOfNode;
@@ -29,9 +29,7 @@ public class treeNode {
 	private int parentHash;
 	String below;
 
-	public void setParentHash(int hash) {
-		this.parentHash = hash;
-	}
+        
 
 	// In a binary tree we would go Left and Right, here we store the address
 	// of the children node below us.
@@ -59,14 +57,11 @@ public class treeNode {
 		case Transaction:
 			this.below = "None";
 			break;
-		case Business:
-			this.below = "Transaction";
-			break;
 		case User:
 			this.below = "PaymentMethod";
 			break;
 		case PaymentMethod:
-			this.below = "Business";
+			this.below = "Transaction";
 			break;
 		}
 
@@ -159,14 +154,21 @@ public class treeNode {
 		System.out.println("User 1's second payment method: " + this.leftNode.rightNode);
 		System.out.println("User 2's first payment method: " + this.rightNode.leftNode);
 		System.out.println("User 2's second payment method: " + this.rightNode.rightNode);
-		System.out.println("User 1's first CASH Business: " + this.leftNode.leftNode.leftNode);
-		System.out.println("User 1's second CASH Business: " + this.leftNode.leftNode.rightNode);
-		System.out.println("User 1's first CARD Business: " + this.leftNode.rightNode.leftNode);
-		System.out.println("User 1's second CARD Business: " + this.leftNode.rightNode.rightNode);
-		System.out.println("User 2's first CASH Business: " + this.rightNode.leftNode.leftNode);
-		System.out.println("User 2's second CASH Business: " + this.rightNode.leftNode.rightNode);
-		System.out.println("User 2's first CARD Business: " + this.rightNode.rightNode.leftNode);
-		System.out.println("User 2's second CARD Business: " + this.rightNode.rightNode.rightNode);
+                
+                System.out.println("User 1's first Cash Transaction Node: " + this.leftNode.leftNode.leftNode);
+                System.out.println("User 1's first Credit Transaction Node: " + this.leftNode.rightNode.leftNode);
+                
+		System.out.println("User 2's first Cash Transaction Node: " + this.rightNode.leftNode.leftNode);
+                System.out.println("User 2's first Credit Transaction Node: " + this.rightNode.rightNode.leftNode);
+                
+//		System.out.println("User 1's first CASH Business: " + this.leftNode.leftNode.leftNode);
+//		System.out.println("User 1's second CASH Business: " + this.leftNode.leftNode.rightNode);
+//		System.out.println("User 1's first CARD Business: " + this.leftNode.rightNode.leftNode);
+//		System.out.println("User 1's second CARD Business: " + this.leftNode.rightNode.rightNode);
+//		System.out.println("User 2's first CASH Business: " + this.rightNode.leftNode.leftNode);
+//		System.out.println("User 2's second CASH Business: " + this.rightNode.leftNode.rightNode);
+//		System.out.println("User 2's first CARD Business: " + this.rightNode.rightNode.leftNode);
+//		System.out.println("User 2's second CARD Business: " + this.rightNode.rightNode.rightNode);
 		System.out.println("<----------------------------- END PRINTING TREE ----------------------------->");
 	}
 

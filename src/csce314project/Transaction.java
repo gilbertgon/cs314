@@ -1,4 +1,4 @@
-package csce314project;
+package javaapplication10;
 
 import java.util.Vector;
 
@@ -17,12 +17,12 @@ query if needed, as well as the amount the transaction was made of.
 
 public class Transaction extends treeNode {
 	String below = "none";
-
+        String userName = "";
 	// creates a Collection of type generic Object
 	Vector<Object> transactionList;
 
 	// Default constructor for Transaction
-	public Transaction(double amount, String date) {
+	public Transaction(String userName) {
 		super(nodeType.Transaction, 1234);
 	}
 
@@ -33,7 +33,7 @@ public class Transaction extends treeNode {
 
 	// appends a new transaction into the trasaction vector
 	public void addTransaction(String name, double value, String date) {
-		TransactionType transactionReciept = new TransactionType(value, date, name);
+		TransactionType transactionReciept = new TransactionType(value, date, name) {};
 		transactionList.add(transactionReciept);
 	}
 

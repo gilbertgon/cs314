@@ -1,4 +1,4 @@
-package csce314project;
+package javaapplication10;
 
 /*
 File: PaymentMethod.java
@@ -43,11 +43,12 @@ public class PaymentMethod extends treeNode {
 	// @TODO:
 	// We add businesses below this node because we track what business I paid
 	// with what kind of payment method
-	void addBusiness(Business business) {
+        
+	void addTransNode(Transaction transaction) {
 		if (this.checkLeftEmpty()) {
-			this.leftNode = business;
+			this.leftNode = transaction;
 		} else if (this.checkRightEmpty()) {
-			this.rightNode = business;
+			this.rightNode = transaction;
 		}
 	}
 
