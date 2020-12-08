@@ -1,5 +1,5 @@
-package javaapplication10;
-import java.util.*; 
+package csce314project;
+import java.util.*;  
 
 public class BankDatabase {
 	
