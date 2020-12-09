@@ -1,10 +1,10 @@
-package javaapplication10;
+package csce314project;
 
 import java.io.IOException;
 import java.util.*;
 //import java.util.Scanner;
 import java.util.regex.Pattern;
-import javaapplication10.treeNode.nodeType;
+import csce314project.treeNode.nodeType;
 
 //import csce314project.treeNode.nodeType;
 
