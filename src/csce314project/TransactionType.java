@@ -1,5 +1,7 @@
 package csce314project;
 
+import java.util.*;
+
 /*
 File: TransactionType.java
 Project: CSCE 314 Project, Fall 2020
@@ -12,14 +14,14 @@ This file contains the TransactionType class for the final project in CSCE
 on their date, amount, and details.
 */
 
-public abstract class TransactionType {
+public class TransactionType {
 
 	private double amount;
 	private String date;
 	private String about;
 
 	// default constructor of the TransactionType class
-	public TransactionType(double amount, String date, String about ) {
+	public TransactionType(double amount, String date, String about) {
 		this.amount = amount;
 		this.date = date;
 		this.about = about;

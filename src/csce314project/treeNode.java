@@ -21,15 +21,13 @@ public class treeNode {
 	}
 
 	nodeType typeOfNode;
-	int hashVal;
+	protected int hashVal;
 	protected treeNode leftNode;
 	protected treeNode rightNode;
 	private treeNode rootNode;
 	private treeNode tail;
 	private int parentHash;
 	String below;
-
-        
 
 	// In a binary tree we would go Left and Right, here we store the address
 	// of the children node below us.
@@ -74,6 +72,35 @@ public class treeNode {
 	// returns the nodeType of a node
 	public nodeType getNodeType() {
 		return this.typeOfNode;
+	}
+
+	protected void setHashVal() {
+		System.out.println("TREENODE SET HASH");
+		int l = 0;
+		int r = 0;
+		if (!this.checkLeftEmpty()) {
+			l = this.leftNode.getLeftHashVal();
+		}
+		if (!this.checkRightEmpty()) {
+			r = this.rightNode.getRightHashVal();
+		}
+		this.hashVal = l + r;
+	}
+
+	protected int getLeftHashVal() {
+		if (!this.checkLeftEmpty()) {
+			return this.leftNode.hashVal;
+		} else {
+			return 0;
+		}
+	}
+
+	protected int getRightHashVal() {
+		if (!this.checkRightEmpty()) {
+			return this.rightNode.hashVal;
+		} else {
+			return 0;
+		}
 	}
 
 	// returns the node below the current node
@@ -148,28 +175,24 @@ public class treeNode {
 
 	public void printTree() {
 		System.out.println("<----------------------------- PRINTING TREE ----------------------------->");
-                User u1 = (User)this.leftNode ;
-                User u2 = (User)this.rightNode;
-		System.out.println("User 1: " + u1.userName);
-		System.out.println("User 2: " + u2.userName);
-                
-                PaymentMethod userPay1 = (PaymentMethod) u1.leftNode;
-                PaymentMethod userPay2 = (PaymentMethod) u1.rightNode;
-                
-		System.out.println("User 1's first payment method: " + userPay1.getPaymentType());
-		System.out.println("User 1's second payment method: " + userPay2.getPaymentType());
-                
-                userPay1 = (PaymentMethod) u2.leftNode;
-                userPay2 = (PaymentMethod) u2.rightNode;
-		System.out.println("User 2's first payment method: " + userPay1.getPaymentType());
-		System.out.println("User 2's second payment method: " + userPay2.getPaymentType());
-                
-                System.out.println("User 1's first Cash Transaction Node: " + this.leftNode.leftNode.leftNode);
-                System.out.println("User 1's first Credit Transaction Node: " + this.leftNode.rightNode.leftNode);
-                
+
+		System.out.println("User 1: " + ((User) this.leftNode).getUserName());
+		System.out.println("User 2: " + ((User) this.rightNode).getUserName());
+		System.out.println(
+				"User 1's first payment method: " + ((PaymentMethod) this.leftNode.leftNode).getPaymentMethodType());
+		System.out.println(
+				"User 1's second payment method: " + ((PaymentMethod) this.leftNode.rightNode).getPaymentMethodType());
+		System.out.println(
+				"User 2's first payment method: " + ((PaymentMethod) this.rightNode.leftNode).getPaymentMethodType());
+		System.out.println(
+				"User 2's second payment method: " + ((PaymentMethod) this.rightNode.rightNode).getPaymentMethodType());
+
+		System.out.println("User 1's first Cash Transaction Node: " + this.leftNode.leftNode.leftNode);
+		System.out.println("User 1's first Credit Transaction Node: " + this.leftNode.rightNode.leftNode);
+
 		System.out.println("User 2's first Cash Transaction Node: " + this.rightNode.leftNode.leftNode);
-                System.out.println("User 2's first Credit Transaction Node: " + this.rightNode.rightNode.leftNode);
-                
+		System.out.println("User 2's first Credit Transaction Node: " + this.rightNode.rightNode.leftNode);
+
 		System.out.println("<----------------------------- END PRINTING TREE ----------------------------->");
 	}
 
@@ -219,6 +242,7 @@ public class treeNode {
 	// @TODO:
 	// update our tree when we change hash value
 	void updateToRoot() {
+		this.setHashVal();
 	}
 
 	// @TODO:
