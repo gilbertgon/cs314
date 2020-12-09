@@ -1,7 +1,6 @@
 package csce314project;
 
 import java.util.*;
-
 /*
 File: User.java
 Project: CSCE 314 Project, Fall 2020

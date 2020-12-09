@@ -1,5 +1,6 @@
 package csce314project;
 
+
 import java.util.*;
 
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.util.*;
 //import java.util.Scanner;
 import java.util.regex.Pattern;
 import csce314project.treeNode.nodeType;
+
 
 /*
 File: Driver.java
@@ -124,6 +126,7 @@ public class Driver {
 			// add transaction to the tree
 			System.out.println("Please enter an amount: ");
 			double amount = (double) scan.nextDouble();
+
 			System.out.println("Payment Method: Cash (1) or Credit (2) ?");
 			int payMethod = scan.nextInt();
 			if (payMethod == 1) {

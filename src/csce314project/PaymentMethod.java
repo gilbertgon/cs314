@@ -18,11 +18,16 @@ public class PaymentMethod extends treeNode {
 
 	String addedPaymentType;
 
+
 	// default constructor of the PaymentMethod class
 	public PaymentMethod(String paymentType) {
 		super(nodeType.PaymentMethod, 1234);
 		this.addedPaymentType = paymentType;
 	}
+        public String getPaymentType()
+        {
+            return this.addedPaymentType;
+        }
 
 	public String getPaymentMethodType() {
 		return this.addedPaymentType;

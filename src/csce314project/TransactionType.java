@@ -34,14 +34,16 @@ public class TransactionType {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-
+        public void setDate(String date) 
+        {
+                this.date = date;
+        }
+        
 	public String getDate() {
-		return date;
+		return this.date;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+	
 
 	public String getAbout() {
 		return about;

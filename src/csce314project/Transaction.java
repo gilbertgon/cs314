@@ -20,6 +20,7 @@ public class Transaction extends treeNode {
 	String userName = "";
 
 	// creates a Collection of type generic Object
+
 	ArrayList<Object> transactionList = new ArrayList<Object>();
 
 	// Default constructor for Transaction
@@ -52,7 +53,7 @@ public class Transaction extends treeNode {
 		for (int i = 0; i < transactionList.size(); i++) {
 			TransactionType trans = (TransactionType) transactionList.get(i);
 			if (trans.getDate() == date) {
-				output += trans.getAmount() + " " + trans.getDate();
+				output = trans.getAmount() + " " + trans.getDate();
 				return output;
 			}
 		}
