@@ -1,5 +1,5 @@
-package javaapplication10;package csce314project;
-import java.util.*; 
+package javaapplication10;
+
 /*
 File: treeNode.java
 Project: CSCE 314 Project, Fall 2020
@@ -148,12 +148,21 @@ public class treeNode {
 
 	public void printTree() {
 		System.out.println("<----------------------------- PRINTING TREE ----------------------------->");
-		System.out.println("User 1: " + this.leftNode);
-		System.out.println("User 2: " + this.rightNode);
-		System.out.println("User 1's first payment method: " + this.leftNode.leftNode);
-		System.out.println("User 1's second payment method: " + this.leftNode.rightNode);
-		System.out.println("User 2's first payment method: " + this.rightNode.leftNode);
-		System.out.println("User 2's second payment method: " + this.rightNode.rightNode);
+                User u1 = (User)this.leftNode ;
+                User u2 = (User)this.rightNode;
+		System.out.println("User 1: " + u1.userName);
+		System.out.println("User 2: " + u2.userName);
+                
+                PaymentMethod userPay1 = (PaymentMethod) u1.leftNode;
+                PaymentMethod userPay2 = (PaymentMethod) u1.rightNode;
+                
+		System.out.println("User 1's first payment method: " + userPay1.getPaymentType());
+		System.out.println("User 1's second payment method: " + userPay2.getPaymentType());
+                
+                userPay1 = (PaymentMethod) u2.leftNode;
+                userPay2 = (PaymentMethod) u2.rightNode;
+		System.out.println("User 2's first payment method: " + userPay1.getPaymentType());
+		System.out.println("User 2's second payment method: " + userPay2.getPaymentType());
                 
                 System.out.println("User 1's first Cash Transaction Node: " + this.leftNode.leftNode.leftNode);
                 System.out.println("User 1's first Credit Transaction Node: " + this.leftNode.rightNode.leftNode);
@@ -161,14 +170,6 @@ public class treeNode {
 		System.out.println("User 2's first Cash Transaction Node: " + this.rightNode.leftNode.leftNode);
                 System.out.println("User 2's first Credit Transaction Node: " + this.rightNode.rightNode.leftNode);
                 
-//		System.out.println("User 1's first CASH Business: " + this.leftNode.leftNode.leftNode);
-//		System.out.println("User 1's second CASH Business: " + this.leftNode.leftNode.rightNode);
-//		System.out.println("User 1's first CARD Business: " + this.leftNode.rightNode.leftNode);
-//		System.out.println("User 1's second CARD Business: " + this.leftNode.rightNode.rightNode);
-//		System.out.println("User 2's first CASH Business: " + this.rightNode.leftNode.leftNode);
-//		System.out.println("User 2's second CASH Business: " + this.rightNode.leftNode.rightNode);
-//		System.out.println("User 2's first CARD Business: " + this.rightNode.rightNode.leftNode);
-//		System.out.println("User 2's second CARD Business: " + this.rightNode.rightNode.rightNode);
 		System.out.println("<----------------------------- END PRINTING TREE ----------------------------->");
 	}
 

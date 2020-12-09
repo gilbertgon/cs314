@@ -1,5 +1,4 @@
-package csce314project;
-import java.util.*; 
+package javaapplication10;
 
 import java.io.IOException;
 import java.util.*;
@@ -136,7 +135,8 @@ public class Driver {
                             Transaction transNode = (Transaction)newUser.leftNode.leftNode; //access the TransactionNode
                            
                             //add TransactionType info
-                             transNode.addTransaction("date", amount, fullName);
+                             transNode.addTransaction(fullName, amount,"date" );
+                             System.out.println(transNode.getTransInfo("date"));
                         }
                         else if(payMethod == 2)
                         {

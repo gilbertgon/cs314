@@ -1,5 +1,4 @@
-package csce314project;
-import java.util.*; 
+package javaapplication10;
 
 /*
 File: TransactionType.java
@@ -33,14 +32,16 @@ public abstract class TransactionType {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-
+        public void setDate(String date) 
+        {
+                this.date = date;
+        }
+        
 	public String getDate() {
-		return date;
+		return this.date;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
-	}
+	
 
 	public String getAbout() {
 		return about;

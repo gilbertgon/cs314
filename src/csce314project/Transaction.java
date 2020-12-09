@@ -1,5 +1,4 @@
-package csce314project;
-import java.util.*; 
+package javaapplication10;
 
 import java.util.Vector;
 
@@ -20,7 +19,7 @@ public class Transaction extends treeNode {
 	String below = "none";
         String userName = "";
 	// creates a Collection of type generic Object
-	Vector<Object> transactionList;
+	Vector<Object> transactionList= new Vector<Object>();
 
 	// Default constructor for Transaction
 	public Transaction(String userName) {
@@ -49,7 +48,7 @@ public class Transaction extends treeNode {
 		for (int i = 0; i < transactionList.size(); i++) {
 			TransactionType trans = (TransactionType) transactionList.get(i);
 			if (trans.getDate() == date) {
-				output += trans.getAmount() + " " + trans.getDate();
+				output = trans.getAmount() + " " + trans.getDate();
 				return output;
 			}
 		}

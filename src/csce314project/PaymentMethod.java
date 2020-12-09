@@ -1,5 +1,4 @@
-package csce314project;
-import java.util.*; 
+package javaapplication10;
 
 /*
 File: PaymentMethod.java
@@ -16,7 +15,7 @@ payment type we're accessing. Card, Cash, Bitcoin , etc.
 public class PaymentMethod extends treeNode {
 
 	String addedPaymentType;
-	String below = "business";
+	String below = "Transaction";
 
 	// returns the Node below the current node
 	public String getBelow() {
@@ -28,6 +27,10 @@ public class PaymentMethod extends treeNode {
 		super(nodeType.PaymentMethod, 1234);
 		this.addedPaymentType = paymentType;
 	}
+        public String getPaymentType()
+        {
+            return this.addedPaymentType;
+        }
 
 	// Do we already have a given type trying to be accessed?
 	void checkForType() {
