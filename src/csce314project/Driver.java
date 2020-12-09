@@ -1,14 +1,8 @@
 package csce314project;
 
-
 import java.util.*;
-
 import java.io.IOException;
-import java.util.*;
-//import java.util.Scanner;
-import java.util.regex.Pattern;
 import csce314project.treeNode.nodeType;
-
 
 /*
 File: Driver.java
@@ -38,7 +32,7 @@ public class Driver {
 		String userName = scan.nextLine();
 
 		// instantiates a root for the Merkle Tree
-		treeNode root = new treeNode(nodeType.Root, 1234);
+		treeNode root = new treeNode(nodeType.Root, 1);
 		BankDatabase bankDB = new BankDatabase();
 		String fullName = "";
 
@@ -72,33 +66,23 @@ public class Driver {
 		root.addUser(user2);
 
 		PaymentMethod cash1 = new PaymentMethod("cash");
-		cash1.addTransNode(new Transaction(user1.toString()));
+		cash1.addTransNode(new Transaction(user1.toString(), root));
 
 		// cash1.addTransNode(new Business(amount,dateSpent, payMethod,b_name));
 		PaymentMethod card1 = new PaymentMethod("card");
-		card1.addTransNode(new Transaction(user1.toString()));
+		card1.addTransNode(new Transaction(user1.toString(), root));
 
 		PaymentMethod cash2 = new PaymentMethod("cash");
-		cash2.addTransNode(new Transaction(user2.toString()));
+		cash2.addTransNode(new Transaction(user2.toString(), root));
 
 		PaymentMethod card2 = new PaymentMethod("card");
-		card2.addTransNode(new Transaction(user2.toString()));
+		card2.addTransNode(new Transaction(user2.toString(), root));
 
 		user1.addPaymentMethod(cash1);
 		user1.addPaymentMethod(card1);
 
 		user2.addPaymentMethod(cash2);
 		user2.addPaymentMethod(card2);
-
-		card2.hashVal = 3;
-		cash2.hashVal = 6;
-
-//		System.out.println("BEFORE: " + user2.hashVal);
-		user2.updateHashVal();
-//		System.out.println("AFTER: " + user2.hashVal);
-
-//		root.addPaymentMethod(user2, card);
-//		root.addPaymentMethod(user2, cash);
 
 		root.printTree();
 
@@ -132,14 +116,12 @@ public class Driver {
 			if (payMethod == 1) {
 				// Adds Transaction to certain
 				// find user USES NEW USER HERE
-
+				System.out.println("ROOT's hashval in the beginning: " + root.hashVal);
 				Transaction transNode = (Transaction) selUser.leftNode.leftNode; // access the TransactionNode
 				// add TransactionType info=
-				System.out.println("BEFORE: " + transNode.hashVal);
+
 				transNode.addTransaction("date", amount, fullName);
-				System.out.println("BEFORE 2: " + transNode.hashVal);
-				transNode.addTransaction("yo", amount, fullName);
-				System.out.println("AFTER: " + transNode.hashVal);
+				System.out.println("BEFORE : " + transNode.hashVal);
 			} else if (payMethod == 2) {
 				// find user
 				// access the payMthd
@@ -164,7 +146,10 @@ public class Driver {
 		else {
 			System.exit(0);
 		}
-
+		System.out.println(
+				"ROOT's hashval in the end: " + root.hashVal + " which should be equal to the below two added: ");
+		System.out.println(user1.hashVal);
+		System.out.println(user2.hashVal);
 	}
 
 }

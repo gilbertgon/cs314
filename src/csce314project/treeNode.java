@@ -74,19 +74,6 @@ public class treeNode {
 		return this.typeOfNode;
 	}
 
-	protected void setHashVal() {
-		System.out.println("TREENODE SET HASH");
-		int l = 0;
-		int r = 0;
-		if (!this.checkLeftEmpty()) {
-			l = this.leftNode.getLeftHashVal();
-		}
-		if (!this.checkRightEmpty()) {
-			r = this.rightNode.getRightHashVal();
-		}
-		this.hashVal = l + r;
-	}
-
 	protected int getLeftHashVal() {
 		if (!this.checkLeftEmpty()) {
 			return this.leftNode.hashVal;
@@ -103,52 +90,38 @@ public class treeNode {
 		}
 	}
 
+	protected void updateHashVal() {
+		if (!(this instanceof Transaction)) {
+			this.hashVal = 0;
+		}
+		if (!this.checkLeftEmpty()) {
+			this.leftNode.updateHashVal();
+//			System.out.println("User left hash: " + this.leftNode.hashVal + " made from, " + this.leftNode.getClass());
+			this.hashVal += this.leftNode.hashVal;
+		}
+		if (!this.checkRightEmpty()) {
+			this.rightNode.updateHashVal();
+//			System.out.println("User right hash: " + this.rightNode.hashVal + " made from, " + this.rightNode.getClass());
+			this.hashVal += this.rightNode.hashVal;
+		}
+	}
+
 	// returns the node below the current node
 	public String getBelow() {
 		return this.below;
 	}
 
 	void addUser(User userNode) {
-//		System.out.println("<------------- WE WILL NOW ADD A NEW USER ------------->");
 		if (rootNode.checkLeftEmpty()) {
 			rootNode.leftNode = userNode;
 		} else if (rootNode.checkRightEmpty()) {
 			rootNode.rightNode = userNode;
 		}
-//		System.out.println("<------------- END ADDING TREENODE ------------->");
 	}
-
-//	void addPaymentMethod(User userNode, PaymentMethod PaymentMethod) {
-//		if (rootNode.leftNode instanceof User) {
-//			User userRootNodeL = (User) rootNode.leftNode;
-//			User userRootNodeR = (User) rootNode.rightNode;
-//			if (userRootNodeL.getUserName() == userNode.getUserName()) {
-//				if (userRootNodeL.checkLeftEmpty()) {
-//					userRootNodeL.leftNode = PaymentMethod;
-//				} else if (userRootNodeL.checkRightEmpty()) {
-//					userRootNodeL.rightNode = PaymentMethod;
-//				}
-//			} else if (userRootNodeR.getUserName() == userNode.getUserName()) {
-//				if (userRootNodeR.checkLeftEmpty()) {
-//					userRootNodeR.leftNode = PaymentMethod;
-//				} else if (userRootNodeR.checkRightEmpty()) {
-//					userRootNodeR.rightNode = PaymentMethod;
-//				}
-//			}
-//		}
-//
-//	}
 
 	// adds children to the current tree node
 	void addChild(treeNode addedNode) {
 		treeNode temp = rootNode.tail;
-//		System.out.println("<------------- WE WILL NOW ADD A NEW TREENODE ------------->");
-//		System.out.println("The value of root's tail: " + temp.getClass());
-//		System.out.println("The value of node below should be: " + temp.getBelow().toString());
-//		System.out.println("Adding node: " + addedNode.typeOfNode.toString());
-//		System.out.println("Is left empty? " + temp.checkLeftEmpty());
-//		System.out.println("Is right empty? " + temp.checkRightEmpty());
-
 		if (temp.checkLeftEmpty() && temp.getBelow() == addedNode.typeOfNode.toString()) {
 			temp.leftNode = addedNode;
 			rootNode.tail = addedNode;
@@ -157,13 +130,7 @@ public class treeNode {
 			temp.rightNode = addedNode;
 			rootNode.tail = addedNode;
 		}
-//		System.out.println("<------------- END ADDING TREENODE ------------->");
 	}
-
-	// What are the children below my current node?
-	// public ArrayList<User> getChildren() {
-	// return children;
-	// }
 
 	public boolean checkLeftEmpty() {
 		return this.leftNode == null;
@@ -237,12 +204,6 @@ public class treeNode {
 	// returns the root of the node
 	public treeNode getRoot() {
 		return this.rootNode;
-	}
-
-	// @TODO:
-	// update our tree when we change hash value
-	void updateToRoot() {
-		this.setHashVal();
 	}
 
 	// @TODO:

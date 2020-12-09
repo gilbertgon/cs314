@@ -18,68 +18,19 @@ public class PaymentMethod extends treeNode {
 
 	String addedPaymentType;
 
-
 	// default constructor of the PaymentMethod class
 	public PaymentMethod(String paymentType) {
-		super(nodeType.PaymentMethod, 1234);
+		super(nodeType.PaymentMethod, 3);
 		this.addedPaymentType = paymentType;
 	}
-        public String getPaymentType()
-        {
-            return this.addedPaymentType;
-        }
+
+	public String getPaymentType() {
+		return this.addedPaymentType;
+	}
 
 	public String getPaymentMethodType() {
 		return this.addedPaymentType;
 	}
-
-	protected void updateParentHash() {
-		super.setHashVal();
-	}
-
-	protected void setHashVal() {
-		int l = 0;
-		int r = 0;
-		if (!this.leftNode.checkLeftEmpty()) {
-			l = this.leftNode.getLeftHashVal();
-		}
-		if (!this.rightNode.checkRightEmpty()) {
-			r = this.rightNode.getRightHashVal();
-		}
-		this.hashVal = l + r;
-	}
-
-	protected int getLeftHashVal() {
-		if (!this.checkLeftEmpty()) {
-			return this.leftNode.hashVal;
-		} else {
-			return 0;
-		}
-	}
-
-	protected int getRightHashVal() {
-		if (!this.checkRightEmpty()) {
-			return this.rightNode.hashVal;
-		} else {
-			return 0;
-		}
-	}
-
-	// Do we already have a given type trying to be accessed?
-	void checkForType() {
-	};
-
-	// @TODO: Add Type
-	void addType() {
-	}
-
-	// @TODO: Add Type
-	void removeType() {
-	}
-
-	// @TODO:
-	// We add businesses below this node because we track what business I paid
-	// with what kind of payment method
 
 	void addTransNode(Transaction transaction) {
 		if (this.checkLeftEmpty()) {

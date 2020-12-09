@@ -18,20 +18,16 @@ query if needed, as well as the amount the transaction was made of.
 
 public class Transaction extends treeNode {
 	String userName = "";
+	treeNode root = null;
 
 	// creates a Collection of type generic Object
-
 	ArrayList<Object> transactionList = new ArrayList<Object>();
 
 	// Default constructor for Transaction
-	public Transaction(String userName) {
-		super(nodeType.Transaction, 1234);
+	public Transaction(String userName, treeNode root) {
+		super(nodeType.Transaction, 4);
 		this.hashVal = transactionList.hashCode();
-	}
-
-	// returns the object below the treenode
-	public String getBelow() {
-		return this.below;
+		this.root = root;
 	}
 
 	// appends a new transaction into the trasaction vector
@@ -39,13 +35,8 @@ public class Transaction extends treeNode {
 		TransactionType transactionReciept = new TransactionType(value, date, name);
 		transactionList.add(transactionReciept);
 		this.hashVal = transactionList.hashCode();
-		super.updateToRoot();
+		this.root.updateHashVal();
 	}
-
-	// we can generate a new hashvalue if we added a transaction to our list
-//	int getHashValue() {
-//		return hashVal;
-//	}
 
 	// output the Transaction info available for a certain Date
 	String getTransInfo(String date) {
