@@ -8,7 +8,7 @@ Date: 11/23/2020
 Section: 512
 E-mail: gilbertglz@tamu.edu & shikhar@tamu.edu
 This file contains the User class.
-We must have a name for a user.
+We must have a name for a user, inherited properties from treenode.
 */
 
 public class User extends treeNode {
@@ -24,9 +24,9 @@ public class User extends treeNode {
 	String getUserName() {
 		return this.userName;
 	}
-	
-	// replicates a malicious attack. 
-	// sets the username to a different username, 
+
+	// replicates a malicious attack.
+	// sets the username to a different username,
 	// and changes the hashcode.
 	void maliciousAttack(String username) {
 		this.userName = username;
