@@ -3,6 +3,7 @@ package csce314project;
 import java.util.*;
 import java.io.IOException;
 import csce314project.treeNode.nodeType;
+import java.util.Date;
 
 /*
 File: Driver.java
@@ -21,23 +22,26 @@ information
 
 public class Driver {
 
-	/**
-	 * @param args the command line arguments
-	 */
 	public static void main(String[] args) throws IOException {
 		// asks the user to input an username
 		System.out.print("Welcome to the Aggie Bank! Please input your username: ");
 
+		// generates a scanner and scans for a username
 		Scanner scan = new Scanner(System.in);
 		String userName = scan.nextLine();
 
 		// instantiates a root for the Merkle Tree
-		treeNode root = new treeNode(nodeType.Root, 1);
+		treeNode root = new treeNode(nodeType.Root, 0);
+
+		// instantiates the bank database
 		BankDatabase bankDB = new BankDatabase();
 		String fullName = "";
 
+		// add a default user for test purposes.
 		bankDB.addUser("shikhar2000", "Shikhar Baheti");
 
+		// checks if a user is present in the bank or not.
+		// if not, creates a new user.
 		if (!bankDB.checkUserName(userName).equals("NULL")) {
 			fullName = bankDB.checkUserName(userName);
 			System.out.println("Welcome back " + fullName + "! You have cash and credit available.");
@@ -65,6 +69,8 @@ public class Driver {
 		root.addUser(user1);
 		root.addUser(user2);
 
+		// adds two paymentmethods (cash and card) along with a transaction node to each
+		// of our two users
 		PaymentMethod cash1 = new PaymentMethod("cash");
 		cash1.addTransNode(new Transaction(user1.toString(), root));
 
@@ -84,12 +90,7 @@ public class Driver {
 		user2.addPaymentMethod(cash2);
 		user2.addPaymentMethod(card2);
 
-		root.printTree();
-
-		// @TODO:
-		// Check if user previously exists from a list of users
-		// if not then make new user
-
+		// selects the user from our merkle tree for further use.
 		User selUser;
 		User rootUserL = (User) root.leftNode;
 		User rootUserR = (User) root.rightNode;
@@ -99,57 +100,51 @@ public class Driver {
 			selUser = rootUserR;
 		}
 
-//		System.out.println(selUser.getUserName());
-
+		// asks the user if they want to make a transaction and if so, asks for the type
+		// of payment, amount, information about the transaction, and the date.
 		System.out.println("Do you want to make a transaction, " + userName + "? Y/N");
 		String checkTrans = scan.nextLine().toLowerCase();
 
 		if (checkTrans != null && checkTrans.equals("y")) {
+			// initiates a default date (today's date)
+			Date date = new Date();
 
-			// @TODO:
-			// add transaction to the tree
 			System.out.println("Please enter an amount: ");
 			double amount = (double) scan.nextDouble();
+
+			System.out.println("What is this transaction about? ");
+			String about = scan.next();
 
 			System.out.println("Payment Method: Cash (1) or Credit (2) ?");
 			int payMethod = scan.nextInt();
 			if (payMethod == 1) {
-				// Adds Transaction to certain
-				// find user USES NEW USER HERE
-				System.out.println("ROOT's hashval in the beginning: " + root.hashVal);
-				Transaction transNode = (Transaction) selUser.leftNode.leftNode; // access the TransactionNode
-				// add TransactionType info=
-
-				transNode.addTransaction("date", amount, fullName);
-				System.out.println("BEFORE : " + transNode.hashVal);
+				Transaction transNode = (Transaction) selUser.leftNode.leftNode;
+				transNode.addTransaction(amount, date.toString(), about);
+//				System.out.println("BEFORE : " + transNode.hashVal);
 			} else if (payMethod == 2) {
-				// find user
-				// access the payMthd
-				// add Transaction
-
+				Transaction transNode = (Transaction) selUser.leftNode.rightNode;
+				transNode.addTransaction(amount, date.toString(), about);
 			} else {
-				// error on input or exit
+				System.out.println("INVALID SELECTION. Please try again.");
 			}
-
-//			Transaction newTrans = new Transaction(userName);
-//                        
-//                        cash1.addTransNode(newTrans);
-
-			// root.addChild(newTrans);
-			System.out.println("The user has successfully made a transaction of $" + amount);
-
-			// Adding new transaction
-			/* Add the amount of money, the date, & assign hash value */
-
+			if (root.defaultHashVal()) {
+				System.out.println("SECURE SYSTEM Initiated: ");
+				System.out.println("The user has successfully made a transaction of $" + amount);
+			} else {
+				System.out.println("SYSTEM INSECURE! THERE HAS BEEN A BREACH!");
+			}
 		}
-		// user didn't make a transaction just exit
-		else {
-			System.exit(0);
-		}
-		System.out.println(
-				"ROOT's hashval in the end: " + root.hashVal + " which should be equal to the below two added: ");
-		System.out.println(user1.hashVal);
-		System.out.println(user2.hashVal);
+
+		System.out.println("After a transaction: ");
+		root.hashValuePrint();
+
+		// performs a malicious attack!
+		user1.maliciousAttack("hacker123");
+		root.updateHashVal();
+		root.checkSystemValidity();
+
+		System.out.println("After a malicious attack: ");
+		root.hashValuePrint();
 	}
 
 }

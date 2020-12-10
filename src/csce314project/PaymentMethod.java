@@ -1,7 +1,5 @@
 package csce314project;
 
-import java.util.*;
-
 /*
 File: PaymentMethod.java
 Project: CSCE 314 Project, Fall 2020
@@ -20,18 +18,18 @@ public class PaymentMethod extends treeNode {
 
 	// default constructor of the PaymentMethod class
 	public PaymentMethod(String paymentType) {
-		super(nodeType.PaymentMethod, 3);
+		super(nodeType.PaymentMethod, 0);
 		this.addedPaymentType = paymentType;
 	}
 
-	public String getPaymentType() {
-		return this.addedPaymentType;
-	}
-
+	// returns the paymenttype
 	public String getPaymentMethodType() {
 		return this.addedPaymentType;
 	}
 
+	// adds the transaction node to the paymentnode,
+	// checks if left is empty, add it there,
+	// if not, add it to the right Node
 	void addTransNode(Transaction transaction) {
 		if (this.checkLeftEmpty()) {
 			this.leftNode = transaction;

@@ -1,7 +1,6 @@
 package csce314project;
 
 import java.util.ArrayList;
-//import java.util.Vector;
 
 /*
 File: Transaction.java
@@ -20,22 +19,25 @@ public class Transaction extends treeNode {
 	String userName = "";
 	treeNode root = null;
 
-	// creates a Collection of type generic Object
-	ArrayList<Object> transactionList = new ArrayList<Object>();
+	// creates a ArrayList of type TransactionType to store transcations
+	ArrayList<TransactionType> transactionList = new ArrayList<TransactionType>();
 
 	// Default constructor for Transaction
 	public Transaction(String userName, treeNode root) {
-		super(nodeType.Transaction, 4);
+		super(nodeType.Transaction, 0);
 		this.hashVal = transactionList.hashCode();
 		this.root = root;
 	}
 
-	// appends a new transaction into the trasaction vector
-	public void addTransaction(String name, double value, String date) {
-		TransactionType transactionReciept = new TransactionType(value, date, name);
+	// appends a new transaction into the trasaction vector, and then re-calculates
+	// the hash function for each node
+	public void addTransaction(double value, String date, String about) {
+		TransactionType transactionReciept = new TransactionType(value, date, about) {
+		};
 		transactionList.add(transactionReciept);
 		this.hashVal = transactionList.hashCode();
 		this.root.updateHashVal();
+		this.root.updateDefaultHash(nodeType.Transaction);
 	}
 
 	// output the Transaction info available for a certain Date
@@ -48,8 +50,7 @@ public class Transaction extends treeNode {
 				return output;
 			}
 		}
-		return output;	
-
+		return output;
 	}
 
 }

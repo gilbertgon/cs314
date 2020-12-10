@@ -1,6 +1,5 @@
 package csce314project;
 
-import java.util.*;
 /*
 File: User.java
 Project: CSCE 314 Project, Fall 2020
@@ -17,7 +16,7 @@ public class User extends treeNode {
 
 	// default Constructor for User class
 	public User(String name) {
-		super(nodeType.User, 2);
+		super(nodeType.User, 0);
 		this.userName = name;
 	}
 
@@ -25,9 +24,20 @@ public class User extends treeNode {
 	String getUserName() {
 		return this.userName;
 	}
+	
+	// replicates a malicious attack. 
+	// sets the username to a different username, 
+	// and changes the hashcode.
+	void maliciousAttack(String username) {
+		this.userName = username;
+		this.hashVal = this.userName.hashCode();
+		System.out.println("The username has been changed to " + username + " and the hashcode has been changed to "
+				+ this.hashVal + "!");
+	}
 
-	// @TODO:
-	// We add mehod here to a specific user but not all users.
+	// adds the Paymentmethod node to the User node,
+	// checks if left is empty, add it there,
+	// if not, add it to the right Node
 	void addPaymentMethod(PaymentMethod PaymentMethod) {
 		if (this.checkLeftEmpty()) {
 			this.leftNode = PaymentMethod;

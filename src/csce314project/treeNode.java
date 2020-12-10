@@ -25,9 +25,7 @@ public class treeNode {
 	protected treeNode leftNode;
 	protected treeNode rightNode;
 	private treeNode rootNode;
-	private treeNode tail;
-	private int parentHash;
-	String below;
+	private int defaultHash;
 
 	// In a binary tree we would go Left and Right, here we store the address
 	// of the children node below us.
@@ -38,42 +36,40 @@ public class treeNode {
 		this.typeOfNode = type;
 		leftNode = null;
 		rightNode = null;
-		parentHash = 0;
-		tail = this;
 		if (this.typeOfNode == nodeType.Root) {
+			defaultHash = this.hashVal;
 			rootNode = this;
 		}
-		setBelow(this.typeOfNode);
 	}
 
-	// defines the hierarchy of each node of the Merkle Tree
-	public void setBelow(nodeType type) {
-		switch (type) {
-		case Root:
-			this.below = "User";
-			break;
-		case Transaction:
-			this.below = "None";
-			break;
-		case User:
-			this.below = "PaymentMethod";
-			break;
-		case PaymentMethod:
-			this.below = "Transaction";
-			break;
-		}
-
+	// returns the safe and protected default hash.
+	public int getDefaultHahsVal() {
+		return this.defaultHash;
 	}
 
-	// @TODO:
-	void removeChild() {
-	}
-
-	// returns the nodeType of a node
+	// returns the node type
 	public nodeType getNodeType() {
 		return this.typeOfNode;
 	}
 
+	// updates the safe and secure default hash to be the root hash value on a
+	// pre-determined safe transaction
+	protected void updateDefaultHash(nodeType node) {
+		if (node == nodeType.Transaction) {
+			this.defaultHash = this.hashVal;
+		}
+	}
+
+	// returns if the safe and protected default hash is the same as the root hash
+	// checks for malicious changes.
+	public boolean defaultHashVal() {
+		if (this.getNodeType() == nodeType.Root) {
+			return this.defaultHash == this.hashVal;
+		}
+		return false;
+	}
+
+	// returns the left node's hash value
 	protected int getLeftHashVal() {
 		if (!this.checkLeftEmpty()) {
 			return this.leftNode.hashVal;
@@ -82,6 +78,7 @@ public class treeNode {
 		}
 	}
 
+	// returns the right node's hash value
 	protected int getRightHashVal() {
 		if (!this.checkRightEmpty()) {
 			return this.rightNode.hashVal;
@@ -90,27 +87,21 @@ public class treeNode {
 		}
 	}
 
-	protected void updateHashVal() {
-		if (!(this instanceof Transaction)) {
-			this.hashVal = 0;
-		}
+	// recursively updates the hash value of each node to be the sum of the hash
+	// value of it's two child nodes
+	public void updateHashVal() {
 		if (!this.checkLeftEmpty()) {
 			this.leftNode.updateHashVal();
-//			System.out.println("User left hash: " + this.leftNode.hashVal + " made from, " + this.leftNode.getClass());
 			this.hashVal += this.leftNode.hashVal;
 		}
 		if (!this.checkRightEmpty()) {
 			this.rightNode.updateHashVal();
-//			System.out.println("User right hash: " + this.rightNode.hashVal + " made from, " + this.rightNode.getClass());
 			this.hashVal += this.rightNode.hashVal;
 		}
 	}
 
-	// returns the node below the current node
-	public String getBelow() {
-		return this.below;
-	}
-
+	// adds a user to the root node. checks if left is empty, adds there.
+	// if not, adds to the right.
 	void addUser(User userNode) {
 		if (rootNode.checkLeftEmpty()) {
 			rootNode.leftNode = userNode;
@@ -119,27 +110,17 @@ public class treeNode {
 		}
 	}
 
-	// adds children to the current tree node
-	void addChild(treeNode addedNode) {
-		treeNode temp = rootNode.tail;
-		if (temp.checkLeftEmpty() && temp.getBelow() == addedNode.typeOfNode.toString()) {
-			temp.leftNode = addedNode;
-			rootNode.tail = addedNode;
-
-		} else if (temp.checkRightEmpty() && temp.getBelow() == addedNode.typeOfNode.toString()) {
-			temp.rightNode = addedNode;
-			rootNode.tail = addedNode;
-		}
-	}
-
+	// checks if leftnode is empty
 	public boolean checkLeftEmpty() {
 		return this.leftNode == null;
 	}
 
+	// checks if the rightnode is empty
 	public boolean checkRightEmpty() {
 		return this.rightNode == null;
 	}
 
+	// prints the tree and its classes
 	public void printTree() {
 		System.out.println("<----------------------------- PRINTING TREE ----------------------------->");
 
@@ -163,52 +144,44 @@ public class treeNode {
 		System.out.println("<----------------------------- END PRINTING TREE ----------------------------->");
 	}
 
-// @TODO:
-// Print my tree
-//	public boolean print() {
-//		while (this != tail) {
-//			treeNode tempL = this.leftNode;
-//			System.out.println(this.nodeType1.toString());
-//			if (!this.checkLeftEmpty()) {
-//				System.out.println("We went left");
-//				System.out.println(tempL.nodeType1);
-//				tempL.print();
-//
-//			}
-//
-//			treeNode tempR = this.rightNode;
-//			if (!this.checkRightEmpty()) {
-//				System.out.println("We went right");
-//				System.out.println(tempR.nodeType1);
-//
-//			}
-//            else
-//            {
-//                tail=temp;
-//            }
-//            if(!temp.checkRightEmpty())
-//            {
-//                System.out.println("we went right");             
-//                System.out.println(tempR.nodeType1);
-//                tempR.print();
-//            }
-//            else
-//            {
-//                rootNode.tail=tempL;
-//                return false;
-//            }
-//	}
+	// prints the hashvalues of each level
+	public void hashValuePrint() {
+		System.out.println("<----------------------------- HASH VALUE PRINTING TREE ----------------------------->");
 
-//	return false;}
+		System.out.println("Root hash value: " + this.hashVal);
+		System.out.println("User 1 hash value: " + this.leftNode.hashVal);
+		System.out.println("User 2 hash value: " + this.rightNode.hashVal);
 
-	// returns the root of the node
-	public treeNode getRoot() {
-		return this.rootNode;
+		System.out.println("User 1's cash payment method hash value: " + this.leftNode.leftNode.hashVal);
+		System.out.println("User 1's card payment method hash value: " + this.leftNode.rightNode.hashVal);
+
+		System.out.println("User 2's cash payment method hash value: " + this.rightNode.leftNode.hashVal);
+		System.out.println("User 2's card payment method hash value: " + this.rightNode.rightNode.hashVal);
+
+		System.out
+				.println("User 1's first cash Transaction Node hash value: " + this.leftNode.leftNode.leftNode.hashVal);
+		System.out.println(
+				"User 1's first card Transaction Node hash value: " + this.leftNode.rightNode.leftNode.hashVal);
+
+		System.out.println(
+				"User 2's first cash Transaction Node hash value: " + this.rightNode.leftNode.leftNode.hashVal);
+		System.out.println(
+				"User 2's first card Transaction Node hash value: " + this.rightNode.rightNode.leftNode.hashVal);
+
+		System.out
+				.println("<----------------------------- END HASH VALUE PRINTING TREE ----------------------------->");
 	}
 
-	// @TODO:
-	// Generates a hash Value for our node regardless of type
-	public int hashGenerator() {
-		return 0;
+	// checks if any malicious changes have been made to the system by equating the
+	// default hash value with the hash value.
+	public void checkSystemValidity() {
+		System.out.println("<== Checking system status ==>");
+		if (this.defaultHashVal()) {
+			System.out.println("The system is secure.");
+		} else {
+			System.out.println("There has been a breach in the system!");
+			System.out
+					.println("Root hashval: " + this.hashVal + " and secure value: " + this.getDefaultHahsVal() + "!");
+		}
 	}
 }
